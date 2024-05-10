@@ -10,7 +10,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 
 
-#[Route(path: '/books/api/v1')]
+#[Route(path: '/app/api/v1')]
 #[OA\Tag(name: 'Health Check', description: 'Checking of status app')]
 class HealthCheckController extends AbstractController
 {

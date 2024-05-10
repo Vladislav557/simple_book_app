@@ -4,16 +4,16 @@ namespace App\Model\Request;
 
 use App\Core\Trait\PaginationTrait;
 use Symfony\Component\Validator\Constraints\Choice;
-use Symfony\Component\Validator\Constraints\Type;
+use OpenApi\Attributes as OA;
 
 class BookListRequest
 {
     use PaginationTrait;
 
-    #[Type(type: 'string')]
+    #[OA\Property(type: 'string')]
     #[Choice(choices: ['title', 'author', 'publishedAt'])]
     private string $sortField = 'publishedAt';
-    #[Type(type: 'string')]
+    #[OA\Property(type: 'string')]
     #[Choice(choices: ['ASC', 'DESC'])]
     private string $sortDirection = 'DESC';
 

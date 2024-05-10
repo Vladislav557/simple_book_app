@@ -3,29 +3,29 @@
 namespace App\Model\DTO;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Type;
+use OpenApi\Attributes as OA;
 
 class BookDTO
 {
-    #[Type(type: 'integer')]
+    #[OA\Property(type: 'integer')]
     #[NotBlank]
     private int $id;
-    #[Type(type: 'string')]
+    #[OA\Property(type: 'string')]
     #[NotBlank]
     private string $title;
-    #[Type(type: 'string')]
+    #[OA\Property(type: 'string')]
     #[NotBlank]
     private string $author;
-    #[Type(type: 'integer')]
+    #[OA\Property(type: 'integer')]
     #[NotBlank]
-    private int $dateTime;
+    private int $publishedAt;
 
-    public function __construct(int $id, string $title, string $author, int $dateTime)
+    public function __construct(int $id, string $title, string $author, int $publishedAt)
     {
         $this->id = $id;
         $this->title = $title;
         $this->author = $author;
-        $this->dateTime = $dateTime;
+        $this->publishedAt = $publishedAt;
     }
 
     public function getId(): int
@@ -43,8 +43,8 @@ class BookDTO
         return $this->author;
     }
 
-    public function getDateTime(): int
+    public function getPublishedAt(): int
     {
-        return $this->dateTime;
+        return $this->publishedAt;
     }
 }

@@ -3,17 +3,17 @@
 namespace App\Model\Request;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Type;
+use OpenApi\Attributes as OA;
 
 class BookEditRequest
 {
-    #[Type(type: 'string')]
+    #[OA\Property(type: 'string')]
     #[NotBlank]
     private string $title;
-    #[Type(type: 'string')]
+    #[OA\Property(type: 'string')]
     #[NotBlank]
     private string $author;
-    #[Type(type: 'integer')]
+    #[OA\Property(type: 'integer')]
     #[NotBlank]
     private int $publishedAt;
 

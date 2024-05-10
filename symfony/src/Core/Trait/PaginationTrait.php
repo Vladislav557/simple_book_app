@@ -2,13 +2,13 @@
 
 namespace App\Core\Trait;
 
-use Symfony\Component\Validator\Constraints\Type;
+use OpenApi\Attributes as OA;
 
 trait PaginationTrait
 {
-    #[Type(type: 'integer')]
+    #[OA\Property(type: 'integer')]
     private int $skip = 0;
-    #[Type(type: 'integer')]
+    #[OA\Property(type: 'integer')]
     private int $total = 20;
 
     public function getSkip(): int

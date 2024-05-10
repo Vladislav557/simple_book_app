@@ -62,7 +62,7 @@ readonly class BookService implements BookServiceInterface
     /**
      * @throws BookAlreadyExistsException
      */
-    public function create(BookCreateRequest $request): void
+    public function create(BookCreateRequest $request): BookDTO
     {
         if ($this->bookRepository->isExists($request->getTitle(), $request->getAuthor())) {
             throw new BookAlreadyExistsException();
@@ -73,6 +73,7 @@ readonly class BookService implements BookServiceInterface
             ->setAuthor($request->getAuthor())
             ->setPublishedAt($request->getPublishedAt());
         $this->bookRepository->save($book, true);
+        return $this->mapToModel($book);
     }
 
     /**
