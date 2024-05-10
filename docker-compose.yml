@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  books:
+  php:
     build:
       dockerfile: docker/Dockerfile_dev
       context: .
@@ -14,7 +14,7 @@ services:
       - ./symfony:/var/www/symfony
     container_name: books
     ports:
-      - "50030:9000"
+      - "9000:9000"
     networks:
       - 172.10.0.0
     environment:
