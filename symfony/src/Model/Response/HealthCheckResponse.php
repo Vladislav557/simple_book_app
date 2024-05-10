@@ -2,7 +2,7 @@
 
 namespace App\Model\Response;
 
-class HealthCheck
+class HealthCheckResponse
 {
     private string $status;
 

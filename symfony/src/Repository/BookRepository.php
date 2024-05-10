@@ -21,28 +21,35 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-//    /**
-//     * @return Book[] Returns an array of Book objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function save(Book $book, bool $flush = false): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($book);
+        if ($flush) {
+            $entityManager->flush();
+        }
+    }
 
-//    public function findOneBySomeField($value): ?Book
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function remove(Book $book, bool $flush = false): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($book);
+        if ($flush) {
+            $entityManager->flush();
+        }
+    }
+
+    public function isExists(string $title, string $author): bool
+    {
+        return !is_null($this->findOneBy(['title' => $title, 'author' => $author]));
+    }
+
+    public function canUpdate(int $id, string $title, string $author): bool
+    {
+        $book = $this->findOneBy(['title' => $title, 'author' => $author]);
+        if (!is_null($book)) {
+            return $book->getId() === $id;
+        }
+        return true;
+    }
 }

@@ -2,29 +2,32 @@
 
 namespace App\Controller;
 
+use App\Model\Response\HealthCheckResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Model\Response\HealthCheck;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 
 
+#[Route(path: '/books/api/v1')]
+#[OA\Tag(name: 'Health Check', description: 'Checking of status app')]
 class HealthCheckController extends AbstractController
 {
-    /**
-     * @Route("/books/api/v1/health", methods={"GET"})
-     * @OA\Response(
-     *     response=200,
-     *     description="ok",
-     *     @Model(type=HealthCheck::class)
-     * )
-     * @OA\Tag(name="HealthCheck", description="Проверка статуса приложения")
-     */
+
+    #[OA\Get(summary: 'Проверка работы приложения')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'ok',
+        content: new Model(
+            type: HealthCheckResponse::class
+        )
+    )]
+    #[Route(path: '/health', methods: ["GET"])]
     public function healthCheck(): Response
     {
         return $this->json(
-            ['success' => true],
+            new HealthCheckResponse('success'),
             Response::HTTP_OK
         );
     }

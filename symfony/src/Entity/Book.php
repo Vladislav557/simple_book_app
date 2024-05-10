@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
+use App\Core\Trait\TimestampTrait;
 use App\Repository\BookRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
 {
+    use TimestampTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -62,5 +67,11 @@ class Book
         $this->publishedAt = $publishedAt;
 
         return $this;
+    }
+
+    #[ORM\PreUpdate]
+    public function updateDate(): void
+    {
+        $this->updatedAt = new DateTime();
     }
 }
