@@ -1,0 +1,34 @@
+version: "3.9"
+
+networks:
+  172.10.0.0:
+    external: true
+
+services:
+  books:
+    build:
+      dockerfile: docker/Dockerfile_dev
+      context: .
+    restart: always
+    volumes:
+      - ./symfony:/var/www/symfony
+    container_name: books
+    ports:
+      - "50030:9000"
+    networks:
+      - 172.10.0.0
+    environment:
+      APP_ENV: 'dev'
+
+  mysql:
+    image: mysql:8.4
+    container_name: mysql
+    environment:
+      MYSQL_USER: "dev_user"
+      MYSQL_PASSWORD: "dev_pass"
+      MYSQL_DATABASE: "books"
+      MYSQL_ROOT_PASSWORD: "root"
+    ports:
+      - "3307:3306"
+    networks:
+      - 172.10.0.0
