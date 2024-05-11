@@ -6,3 +6,9 @@
 ## Запуск
 1. make create - создает стартовое symfony-приложение
 2. make build - собирает docker-образ
+
+## Создание схемы БД и загрузка фикстур
+1. cd ./symfony
+2. make db_schema - создание структуры БД
+3. ./bin/console app:load-fixtures - загрузка фикстур
+
