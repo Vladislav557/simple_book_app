@@ -12,3 +12,5 @@
 2. make db_schema - создание структуры БД
 3. ./bin/console app:load-fixtures - загрузка фикстур
 
+## Документация
+http://172.10.0.1:9000/app/api/v1/doc
