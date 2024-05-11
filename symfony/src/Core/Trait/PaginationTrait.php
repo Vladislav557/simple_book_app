@@ -9,7 +9,7 @@ trait PaginationTrait
     #[OA\Property(type: 'integer')]
     private int $skip = 0;
     #[OA\Property(type: 'integer')]
-    private int $total = 20;
+    private int $limit = 20;
 
     public function getSkip(): int
     {
@@ -23,14 +23,14 @@ trait PaginationTrait
         return $this;
     }
 
-    public function getTotal(): int
+    public function getLimit(): int
     {
-        return $this->total;
+        return $this->limit;
     }
 
-    public function setTotal(int $total): self
+    public function setLimit(int $limit): self
     {
-        $this->total = $total;
+        $this->limit = $limit;
 
         return $this;
     }

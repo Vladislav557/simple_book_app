@@ -22,9 +22,11 @@ class BookListRequest
         return $this->sortField;
     }
 
-    public function setSortField(string $sortField): void
+    public function setSortField(string $sortField): self
     {
         $this->sortField = $sortField;
+
+        return $this;
     }
 
     public function getSortDirection(): string
@@ -32,8 +34,10 @@ class BookListRequest
         return $this->sortDirection;
     }
 
-    public function setSortDirection(string $sortDirection): void
+    public function setSortDirection(string $sortDirection): self
     {
         $this->sortDirection = $sortDirection;
+
+        return $this;
     }
 }

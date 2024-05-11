@@ -42,6 +42,7 @@ readonly class BookService implements BookServiceInterface
         if (is_null($book)) {
             throw new BookNotFoundException();
         }
+        $this->bookRepository->remove($book, true);
     }
 
     public function list(BookListRequest $request): BookListResponse
@@ -51,7 +52,7 @@ readonly class BookService implements BookServiceInterface
             ->findBy(
                 criteria: [],
                 orderBy: [$request->getSortField() => $request->getSortDirection()],
-                limit: $request->getTotal(),
+                limit: $request->getLimit(),
                 offset: $request->getSkip()
             );
         $models = array_map(fn (Book $b) => $this->mapToModel($b), $books);
@@ -79,7 +80,7 @@ readonly class BookService implements BookServiceInterface
     /**
      * @throws BookAlreadyExistsException|BookNotFoundException
      */
-    public function edit(BookEditRequest $request, int $id): void
+    public function edit(BookEditRequest $request, int $id): BookDTO
     {
         $book = $this->bookRepository->find($id);
         if (is_null($book)) {
@@ -93,6 +94,7 @@ readonly class BookService implements BookServiceInterface
             ->setAuthor($request->getAuthor())
             ->setPublishedAt($request->getPublishedAt());
         $this->bookRepository->save($book, true);
+        return $this->mapToModel($book);
     }
 
     private function mapToModel(Book $book): BookDTO
